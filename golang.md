@@ -1,3 +1,32 @@
+# Concurrency
+Use mutual exclusion lock for thread safety
+```go
+mockServiceCall := func() int {
+    return rand.Intn(100)
+}
+
+syncMutex := sync.Mutex{}
+var results []int
+
+waitGroup := sync.WaitGroup{}
+for i := 0; i < 5; i++ {
+    waitGroup.Add(1)
+    go func() {
+        defer waitGroup.Done()
+
+        result := mockServiceCall()
+
+        syncMutex.Lock()
+        results = append(results, result)
+        syncMutex.Unlock()
+    }()
+}
+waitGroup.Wait()
+
+fmt.Println(results)
+```
+
+
 # Strings
 
 Create a string from a byte array
@@ -8,6 +37,6 @@ type Foo struct {
 }
 
 b, _ := xml.Marshal(Foo{Bar: "test", Baz: "struct"})
-
-fmt.Println(string(b[:])
+fooAsXML := string(b[:]
+fmt.Println(fooAsXml)
 ```
