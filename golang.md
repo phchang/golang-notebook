@@ -37,6 +37,6 @@ type Foo struct {
 }
 
 b, _ := xml.Marshal(Foo{Bar: "test", Baz: "struct"})
-fooAsXML := string(b[:]
+fooAsXML := string(b[:])
 fmt.Println(fooAsXml)
 ```
