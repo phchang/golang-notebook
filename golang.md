@@ -26,6 +26,16 @@ waitGroup.Wait()
 fmt.Println(results)
 ```
 
+# Modules
+
+Use the `replace` directive to work on a dependent module locally:
+```
+replace example.com/original/import/path => /your/forked/import/path
+```
+Or use a relative path:
+```
+replace example.com/project/foo => ../foo
+```
 
 # Strings
 
