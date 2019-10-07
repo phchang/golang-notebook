@@ -1,3 +1,12 @@
+# Comments
+## Deprecation Warnings
+
+```go
+const (
+    SomeObsoleteConstant = "Don't use me" // Deprecated: Use something else instead
+)
+```
+
 # Concurrency
 Use mutual exclusion lock for thread safety
 ```go
