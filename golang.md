@@ -100,7 +100,7 @@ func TestSomeService(t *testing.T) {
 	}
 
 	svc := SomeService{Client: client}
-    // test the client 
+	// test the client 
 }
 ```
 
