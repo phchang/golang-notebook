@@ -90,9 +90,12 @@ func (c mockClient) Do(request *http.Request) (*http.Response, error) {
 
 func TestSomeService(t *testing.T) {
 	client := mockClient{
-		MockDo: func(request *http.Request) (response *http.Response, e error) {
+		MockDo: func(request *http.Request) (*http.Response, error) {
 			// generate a mock response and/or make assertions about request
-			return &http.Response{Body: ioutil.NopCloser(bytes.NewReader([]byte("some canned response")))}, nil
+			mockResponse := []byte("some canned response")
+			return &http.Response{
+				Body: ioutil.NopCloser(bytes.NewReader(mockResponse))
+			}, nil
 		},
 	}
 
