@@ -59,3 +59,44 @@ b, _ := xml.Marshal(Foo{Bar: "test", Baz: "struct"})
 fooAsXML := string(b[:])
 fmt.Println(fooAsXml)
 ```
+
+# Testing
+
+## Mocking http.Client
+```go
+type HttpClient interface {
+    Do(*http.Request) (*http.Response, error)
+}
+
+type SomeService struct {
+    Client HttpClient // interface used instead of actual http.Client
+}
+```
+Production code will instantiate a new `SomeService` with an actual `http.Client` reference.
+```go
+svc := SomeService{
+    Client: &http.Client{}, // http.Client fulfills the HttpClient interface
+}
+```
+Test code will create a new mock.
+```go
+type mockClient struct {
+    MockDo func(*http.Request) (*http.Response, error)
+}
+
+func (c mockClient) Do(request *http.Request) (*http.Response, error) {
+    return c.MockDo(request)
+}
+
+func TestSomeService(t *testing.T) {
+	client := mockClient{
+		MockDo: func(request *http.Request) (response *http.Response, e error) {
+			// generate a mock response and/or make assertions about request
+			return &http.Response{Body: ioutil.NopCloser(bytes.NewReader([]byte("some canned response")))}, nil
+		},
+	}
+
+	svc := SomeService{Client: client}
+    // test the client
+}
+```
