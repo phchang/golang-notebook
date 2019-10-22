@@ -103,4 +103,3 @@ func TestSomeService(t *testing.T) {
 	// test the client 
 }
 ```
-
