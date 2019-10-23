@@ -116,6 +116,17 @@ func fetchPage(pageNumber int) (res serviceResponse) {
     return
 }
 ```
+Test
+```go
+func TestDataService_GetAllData(t *testing.T) {
+
+    svc := NewDataService()
+
+    data := svc.GetAllData()
+
+    assert.Len(t, data, 90)
+}
+```
 
 ## Protecting Against Data Race Conditions
 Use mutual exclusion lock for thread safety
